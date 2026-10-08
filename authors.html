@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="be">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Натхненне — студэнцкая творчасць, культура і беларуская мова">
+  <title>Нашы аўтары — Натхненне</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body data-page="authors">
+
+  <aside class="sidebar">
+    <a class="brand" href="index.html"><span></span>Натхненне</a>
+    <div class="caption">Студэнцкая прастора творчасці і беларускай культуры</div>
+
+    <nav aria-label="Асноўная навігацыя">
+      <a href="index.html" data-page="home"><span>01</span>Галоўная</a>
+      <a href="poems.html" data-page="poems"><span>02</span>Нашы вершы</a>
+      <a href="culture.html" data-page="culture"><span>03</span>Культура і мова</a>
+      <a href="authors.html" data-page="authors"><span>04</span>Нашы аўтары</a>
+    </nav>
+
+    <div class="side-bottom">
+      <strong>Менш шуму.<br>Больш сэнсу.</strong><br><br>
+      Чытай у сваім рытме.
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topline">
+      <span>НАТХНЕННЕ / НАШЫ АЎТАРЫ</span>
+      <span>СЛОВЫ, ЯКІЯ ЗАСТАЮЦЦА</span>
+    </div>
+
+    <section class="intro">
+      <div>
+        <div class="kicker">Прастора для натхнення</div>
+        <h1>Нашы аўтары</h1>
+      </div>
+      <p>Людзі за словамі. Пазнаёмся з нашымі аўтарамі праз іх матэрыялы.</p>
+    </section>
+
+    <section id="collection">
+      <div class="chapter">
+        <h2>Нашы галасы</h2>
+        <span id="count" class="small"></span>
+      </div>
+
+      <div class="tools">
+        <input id="search" type="search" aria-label="Пошук" placeholder="Пошук аўтара…">
+        <select id="filter" aria-label="Фільтр па аўтары" hidden>
+          <option value="">Усе аўтары</option>
+        </select>
+        <select id="category" aria-label="Тэма" hidden>
+          <option value="">Усе тэмы</option>
+          <option value="poem">Вершы</option>
+          <option value="news">Навіны</option>
+          <option value="culture">Культура</option>
+          <option value="language">Мова</option>
+          <option value="idea">Ідэі</option>
+        </select>
+        <select id="sort" aria-label="Сартаванне" hidden>
+          <option value="new">Спачатку новыя</option>
+          <option value="title">Па назве: А–Я</option>
+          <option value="author">Па аўтары: А–Я</option>
+        </select>
+      </div>
+
+      <div id="grid" class="grid"></div>
+
+      <p class="note">
+        Дэманстрацыйная версія. Пачатковыя імёны і матэрыялы з пазнакай «прыклад» выдуманыя.
+        Яны не з’яўляюцца рэальнымі навінамі. Публічная форма дадання матэрыялаў прыбрана.
+      </p>
+    </section>
+
+    <footer>
+      <span>Натхненне</span>
+      <span>Творчасць. Культура. Беларуская мова.</span>
+    </footer>
+  </main>
+
+  <dialog id="reader" aria-labelledby="title">
+    <button class="close" id="close" aria-label="Закрыць">×</button>
+    <div class="kicker" id="readCategory"></div>
+    <h2 id="title"></h2>
+    <p class="author" id="author"></p>
+    <div class="verse" id="text"></div>
+  </dialog>
+
+</body>
+</html>
