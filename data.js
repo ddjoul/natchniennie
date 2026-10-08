@@ -5,65 +5,40 @@ const db = window.supabase.createClient(
 
 async function loadSiteData() {
   const grid = document.getElementById('grid');
-
-  if (grid) {
-    grid.textContent = 'Загрузка матэрыялаў…';
-  }
-
+  if (grid) grid.textContent = 'Загрузка матэрыялаў…';
   try {
-    const { data, error } = await db
-      .from('posts')
-      .select(`
-        id,
-        title,
-        body,
-        category,
-        published_at,
-        created_at,
-        authors (
-          name
-        )
-      `)
-      .eq('status', 'published')
-      .order('published_at', {
-        ascending: false,
-        nullsFirst: false
-      });
-
-    if (error) throw error;
-
-    // Приводим записи базы к формату текущего сайта.
-    window.siteItems = data.map(post => ({
-      id: post.id,
+    const [authorsResult, postsResult] = await Promise.all([
+      db.from('authors').select('id, name').order('name'),
+      db.from('posts')
+        .select('id, author_id, title, body, category, published_at, created_at')
+        .eq('status', 'published')
+        .order('published_at', { ascending: false, nullsFirst: false })
+    ]);
+    if (authorsResult.error) throw authorsResult.error;
+    if (postsResult.error) throw postsResult.error;
+    window.siteAuthors = authorsResult.data || [];
+    const byId = new Map(window.siteAuthors.map(a => [String(a.id), a]));
+    window.siteItems = (postsResult.data || []).map(post => ({
+      id: String(post.id),
+      authorId: String(post.author_id),
       type: post.category,
-      title: post.title,
-      author: post.authors?.name || 'Без аўтара',
-      text: post.body,
-      created: Date.parse(
-        post.published_at || post.created_at
-      )
+      title: post.title || '',
+      author: byId.get(String(post.author_id))?.name || 'Аўтар недаступны',
+      text: post.body || '',
+      created: Date.parse(post.published_at || post.created_at) || 0
     }));
-
-    // Запускаем оформление карточек после загрузки данных.
     const script = document.createElement('script');
-    script.src = 'script.js';
-
+    script.src = 'script.js?v=db-authors-2';
     script.onerror = () => {
-      if (grid) {
-        grid.textContent =
-          'Не ўдалося загрузіць логіку сайта.';
-      }
+      if (grid) grid.textContent = 'Не ўдалося загрузіць логіку сайта.';
     };
-
     document.body.appendChild(script);
   } catch (error) {
-    console.error('Ошибка загрузки:', error);
-
-    if (grid) {
-      grid.textContent =
-        'Не ўдалося загрузіць матэрыялы. Паспрабуйце пазней.';
-    }
+    console.error('Ошибка загрузки:', JSON.stringify({
+      code: error?.code, message: error?.message,
+      details: error?.details, hint: error?.hint
+    }, null, 2));
+    if (grid) grid.textContent = 'Не ўдалося загрузіць матэрыялы. Паспрабуйце пазней.';
   }
 }
-
 loadSiteData();
