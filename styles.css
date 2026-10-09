@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'KS Bistra';
-  src: url('fonts/KS-Bistra-OpenType-TT.ttf') format('ttf');
+  src: url('fonts/KS-Bistra-OpenType-TT.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
