@@ -1233,3 +1233,98 @@ body.leaving main {
   }
 
 }
+
+/* мобильная версия */
+@media (max-width: 640px) {
+  :root {
+    --left: 20px;
+    --right: 20px;
+  }
+
+  /* кнопки меню идут друг под другом */
+  .nav {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 18px;
+    margin: 25px 0 0;
+    padding-bottom: 7px;
+  }
+
+  .nav a {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    height: auto;
+    line-height: 0;
+  }
+
+  .nav img {
+    display: block;
+    width: auto;
+    height: 24px;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  /* небольшие одинаковые отступы по краям */
+  .content {
+    padding-left: var(--left);
+    padding-right: var(--right);
+    min-width: 0;
+  }
+
+  /* все списки карточек — в одну колонку */
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    margin-top: 45px;
+  }
+
+  .profile-grid {
+    margin-top: 26px;
+  }
+
+  /* одинаковый размер карточек */
+  .card {
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+    padding: 28px 20px 23px;
+    overflow: hidden;
+  }
+
+  /* отменяем особое размещение карточек */
+  .card:nth-child(6n + 1),
+  .card:nth-child(6n + 4) {
+    grid-column: auto;
+  }
+
+  /* элементы карточки автора */
+  .author-mini {
+    grid-template-columns: 74px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .avatar-mini {
+    width: 74px;
+    height: 74px;
+    flex-shrink: 0;
+  }
+
+  .card-foot,
+  .author-link {
+    flex-shrink: 0;
+  }
+
+  /* угловые подписи остаются скрытыми */
+  .corner-bottom,
+  .corner-top {
+    display: none;
+  }
+}
